@@ -22,4 +22,9 @@ public class CalcTests {
     void t3(){
         assertThat(Calc.run("3 + 1")).isEqualTo(4);
     }
+    @Test
+    @DisplayName("50 - 30 == 20")
+    void t4(){
+        assertThat(Calc.run("50 - 30")).isEqualTo(20);
+    }
 }
