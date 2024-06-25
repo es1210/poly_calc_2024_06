@@ -62,5 +62,30 @@ public class CalcTests {
     void t11(){
         assertThat(Calc.run("20 + 10 + 5 * 2")).isEqualTo(40);
     }
+    @Test
+    @DisplayName("20 * 10 + 5 * 2 = 210")
+    void t12(){
+        assertThat(Calc.run("20 * 10 + 5 * 2")).isEqualTo(210);
+    }
 
+    @Test
+    @DisplayName("30 * 10 - 5 * 2 = 290")
+    void t13(){
+        assertThat(Calc.run("30 * 10 - 5 * 2")).isEqualTo(290);
+    }
+    @Test
+    @DisplayName("(10 + 20) = 30")
+    void t14(){
+        assertThat(Calc.run("(10 + 20)")).isEqualTo(30);
+    }
+    @Test
+    @DisplayName("((10 + 20)) = 30")
+    void t15(){
+        assertThat(Calc.run("((10 + 20))")).isEqualTo(30);
+    }
+    @Test
+    @DisplayName("(((10 + 20))) = 30")
+    void t16(){
+        assertThat(Calc.run("(((10 + 20)))")).isEqualTo(30);
+    }
 }
