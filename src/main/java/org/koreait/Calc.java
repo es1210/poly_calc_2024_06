@@ -5,16 +5,29 @@ import java.util.Arrays;
 public class Calc {
     public static int run(String exp) {
 
-        exp = exp.replaceAll("- ", "+ -");
+        boolean needToPlusMinus = exp.contains("+") || exp.contains("-");
+        boolean needToMultiple = exp.contains("*");
 
-        String[] bits = exp.split(" \\+ ");
-
-
-        int sum = 0;
-        for(int i = 0; i < bits.length; i++) {
-            sum += Integer.parseInt(bits[i]);
+        if(needToPlusMinus) {
+            exp = exp.replaceAll("- ", "+ -"); //필터링 하는 역할
+            String[] bits = exp.split(" \\+ ");
+            int rs = 0;
+            for(int i = 0; i < bits.length; i++) {
+                rs += Integer.parseInt(bits[i]);
+            }
+            return rs;
         }
-            return sum;
+        else if(needToMultiple) {
+            String[] bits = exp.split(" \\* ");
+            int rs = 1;
+            for(int i = 0; i < bits.length; i++) {
+                rs *= Integer.parseInt(bits[i]);
+            }
+            return rs;
+        }
+
+        return 0;
+
 
         //throw new RuntimeException("해석불가");
     }
