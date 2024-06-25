@@ -1,34 +1,34 @@
 package org.koreait;
-
-import java.util.Arrays;
-
 public class Calc {
     public static int run(String exp) {
+        boolean needToMulti = exp.contains("*");
+        boolean needToPlus = exp.contains("+");
 
-        boolean needToPlusMinus = exp.contains("+") || exp.contains("-");
-        boolean needToMultiple = exp.contains("*");
+        boolean needToCompound = needToMulti && needToPlus;
 
-        if(needToPlusMinus) {
-            exp = exp.replaceAll("- ", "+ -"); //필터링 하는 역할
+        if (needToCompound) {
             String[] bits = exp.split(" \\+ ");
-            int rs = 0;
-            for(int i = 0; i < bits.length; i++) {
-                rs += Integer.parseInt(bits[i]);
-            }
-            return rs;
+
+            return Integer.parseInt(bits[0]) + run(bits[1]);
         }
-        else if(needToMultiple) {
+
+        if (needToPlus) {
+            exp = exp.replaceAll("- ", "+ -");
+
+            String[] bits = exp.split(" \\+ ");
+            int sum = 0;
+            for (int i = 0; i < bits.length; i++) {
+                sum += Integer.parseInt(bits[i]);
+            }
+            return sum;
+        } else if (needToMulti) {
             String[] bits = exp.split(" \\* ");
-            int rs = 1;
-            for(int i = 0; i < bits.length; i++) {
-                rs *= Integer.parseInt(bits[i]);
+            int sum = 1;
+            for (int i = 0; i < bits.length; i++) {
+                sum *= Integer.parseInt(bits[i]);
             }
-            return rs;
+            return sum;
         }
-
-        return 0;
-
-
-        //throw new RuntimeException("해석불가");
+        throw new RuntimeException("해석 불가 : 올바른 계산식이 아니야");
     }
 }
