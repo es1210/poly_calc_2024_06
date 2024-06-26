@@ -35,7 +35,12 @@ public class Calc {
             String firstExp = exp.substring(0, splitPointIndex + 1);
             String secondExp = exp.substring(splitPointIndex + 4);
 
-            return Calc.run(firstExp) + Calc.run(secondExp);
+            char operator = exp.charAt(splitPointIndex + 2);
+
+            exp = Calc.run(firstExp) + " " + operator + " " + Calc.run(secondExp);
+
+            return Calc.run(exp);
+
         }
 
         if (needToCompound) {
