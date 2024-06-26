@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 
 public class Calc {
 
-    public static boolean debug = false;
+    public static boolean debug = true;
     public static int runCallCount = 0;
 
     public static int run(String exp) {
@@ -13,6 +13,12 @@ public class Calc {
         exp = exp.trim(); // 양 옆의 쓸데없는 공백 제거
         // 괄호 제거
         exp = stripOuterBrackets(exp);
+
+        //음수 괄호 패턴일시, 기존에 갖고있는 패턴과는 맞지 않으니 패턴 변경
+        if(isNegativeCaseBracket(exp)){
+            exp = exp.substring(1) + " * -1";
+        }
+
         if (debug) {
             System.out.printf("exp(%d) : %s\n", runCallCount, exp);
         }
@@ -61,6 +67,30 @@ public class Calc {
             return sum;
         }
         throw new RuntimeException("해석 불가 : 올바른 계산식이 아니야");
+    }
+
+    private static boolean isNegativeCaseBracket(String exp) {
+        //로 시작하는지
+        if(exp.startsWith("-") == false) return false;
+
+        //괄호로 되어있는지
+        int brackesCount = 0;
+
+        for (int i = 0; i < exp.length(); i++) {
+            char c = exp.charAt(i);
+
+            if (c == '(') {
+                brackesCount++;
+            } else if (c == ')') {
+                brackesCount--;
+            }
+
+            if(brackesCount == 0){
+                if(exp.length() - 1 == i) return true;
+
+            }
+        }
+        return false;
     }
 
     private static int findSplitPointIndex(String exp) {

@@ -122,4 +122,9 @@ public class CalcTests {
     void t23(){
         assertThat(Calc.run("10 * (10 + 5)")).isEqualTo(150);
     }
+    @Test
+    @DisplayName("-(10 + 5) == -15")
+    void t24(){
+        assertThat(Calc.run("-(10 + 5)")).isEqualTo(-15);
+    }
 }
